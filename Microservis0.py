@@ -1,16 +1,12 @@
 import json
 import asyncio
-import nest_asyncio
+import nest_asyncio    #Spyder
+nest_asyncio.apply()
 import aiosqlite
 import aiofiles
 from aiohttp import web
 import sqlite3
-nest_asyncio.apply()
-import aiohttp
-import sqlite3
 import requests
-import nest_asyncio
-nest_asyncio.apply()
 
 routes = web.RouteTableDef()
 
@@ -52,7 +48,7 @@ async def get_Data(req):
     # izvodi se IFF je baza prazna
     if broj_redaka == 0:
         async with aiofiles.open('data.json', mode='r') as file_data:
-            read_data = {await file_data.readline() for _ in range(1000)}
+            read_data = {await file_data.readline() for _ in range(10000)}
             data = await fill_data(read_data)
         return web.json_response(data, status=200)
     else:
@@ -61,4 +57,4 @@ async def get_Data(req):
     
 app = web.Application()
 app.router.add_routes(routes)
-web.run_app(app, port=8080) 
+web.run_app(app, port=8080)
