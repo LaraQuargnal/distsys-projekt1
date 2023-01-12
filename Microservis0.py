@@ -44,7 +44,7 @@ async def fill_data(data):
             rezultat = await cur.fetchall()
             for row in rezultat:
                 redovi.append(dict(zip(columns, row)))
-            url = 'http://127.0.0.1:1000'
+            url = 'http://127.0.0.1:8081'
             requests.post(url, json=redovi)
             await db.commit()
            
