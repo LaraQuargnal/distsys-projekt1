@@ -19,12 +19,10 @@ conn = sqlite3.connect('database.db')
 c = conn.cursor()
 c.execute("SELECT COUNT(*) FROM baza3")
 broj_redaka = c.fetchone()[0]
-
 if broj_redaka == 0:
     print("Baza je prazna.")
 else:
     print(f"Baza nije prazna. Ima {broj_redaka} redova.")
-
 
 # funkcija za popunjavanje DB s testnim podacima
 async def fill_data(data):
@@ -47,9 +45,7 @@ async def fill_data(data):
             url = 'http://127.0.0.1:8081'
             requests.post(url, json=redovi)
             await db.commit()
-           
     return redovi
-
 
 @routes.get("/getData")
 async def get_Data(req):
@@ -66,4 +62,3 @@ async def get_Data(req):
 app = web.Application()
 app.router.add_routes(routes)
 web.run_app(app, port=8080)
-
