@@ -1,8 +1,10 @@
 from aiohttp import web
+import asyncio
 import json
 import logging
 import nest_asyncio
 nest_asyncio.apply()
+import requests
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -15,8 +17,9 @@ async def WTw(request):
     try:
         data = await request.json()
         username_w = [w['username'] for w in data if 'username' in w and w['username'].lower().startswith('w')]
-
-        print(username_w)
+        print(username_w)        
+        url = 'http://127.0.0.1:8084/gatherData'
+        requests.post(url, json=username_w)
         return web.json_response(username_w, status=200)
     except json.decoder.JSONDecodeError:
         logger.error("Invalid JSON data")
