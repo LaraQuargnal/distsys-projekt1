@@ -1,12 +1,5 @@
 from aiohttp import web
-import requests
-import json
 import asyncio
-import aiofiles
-import aiohttp
-import aiosqlite
-from aiohttp import web
-import sqlite3
 import requests
 import nest_asyncio
 nest_asyncio.apply()
@@ -18,21 +11,21 @@ routes = web.RouteTableDef()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
-# Req: Uzima json podatke, prelazi preko svakog dict-ija i stavlja u listu. 
+# Req: Uzima json podatke, prelazi preko svakog dictionarija i stavlja u listu. 
 # Vraća Json rez
 @routes.post("/")
-async def M1(request):
+async def M1(req):
     try:
-        podaci = await request.json()
+        podaci = await req.json()
         ds = []
         for dictionary in podaci:
             ds.append(dictionary)
         rez = ds
         print("rezultat", rez)
-        #url1 = 'http://127.0.0.1:8083/'
-        #url2 = 'http://127.0.0.1:8084/'
-        #requests.post(url1, json=result)
-        #requests.post(url2, json=result)
+        veza1 = 'http://127.0.0.1:8082/'
+        veza2 = 'http://127.0.0.1:8083/'
+        requests.post(veza1, json=rez)
+        requests.post(veza2, json=rez)
         return web.json_response(rez, status=200)
     except Exception as e:
         logger.error("Error: %s", e)
